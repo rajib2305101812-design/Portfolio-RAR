@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAR | MD Rajibul Alam Rajib — AI, IoT, Networking & Cybersecurity</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans, Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            midnight: '#0B1120',
+            charcoal: '#111827',
+            slateCard: '#1E293B',
+            iceBlue: '#38BDF8',
+            steelSky: '#60A5FA',
+            platinum: '#F8FAFC',
+            mutedSlate: '#94A3B8',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-main: #F1F5F9;
+      --bg-alt: #E2E8F0;
+      --card-bg: #FFFFFF;
+      --card-inner: #F8FAFC;
+      --text-main: #0F172A;
+      --text-sub: #475569;
+      --border-subtle: rgba(15, 23, 42, 0.12);
+      --grid-color: rgba(15, 23, 42, 0.05);
+      --glow-color: rgba(56, 189, 248, 0.14);
+    }
+
+    html.dark {
+      --bg-main: #0B1120;
+      --bg-alt: #111827;
+      --card-bg: #1E293B;
+      --card-inner: #151E32;
+      --text-main: #F8FAFC;
+      --text-sub: #94A3B8;
+      --border-subtle: rgba(148, 163, 184, 0.16);
+      --grid-color: rgba(148, 163, 184, 0.05);
+      --glow-color: rgba(56, 189, 248, 0.18);
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      overflow-x: hidden;
+      transition: background-color 0.35s ease, color 0.35s ease;
+    }
+
+    .bg-architect-grid {
+      background-color: var(--bg-main);
+      background-image:
+        radial-gradient(circle at 82% 18%, var(--glow-color), transparent 45%),
+        radial-gradient(circle at 14% 78%, rgba(96, 165, 250, 0.08), transparent 42%),
+        linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    }
+
+    .surface-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.07), 0 12px 32px -12px rgba(2, 6, 23, 0.45);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .surface-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(56, 189, 248, 0.55);
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 24px 40px -12px rgba(2, 6, 23, 0.6), 0 0 24px -6px rgba(56, 189, 248, 0.2);
+    }
+
+    .inner-box {
+      background-color: var(--card-inner);
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* Typing cursor blink */
+    .typing-cursor::after {
+      content: '|';
+      color: #38BDF8;
+      font-weight: 700;
+      margin-left: 3px;
+      animation: blinkCursor 0.85s infinite;
+    }
+    @keyframes blinkCursor {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Studio Glow matching Rajib's Black Suit & Slate-Blue Backdrop */
+    .portrait-glow {
+      box-shadow: 0 28px 55px -12px rgba(2, 6, 23, 0.8), 0 0 42px -10px rgba(56, 189, 248, 0.28);
+    }
+
+    @media print {
+      #preloader, nav, .no-print, #collab-cta {
+        display: none !important;
+      }
+      body {
+        background: #ffffff !important;
+        color: #0f172a !important;
+      }
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-iceBlue selection:text-midnight">
+
+  <!-- 1. PRELOADER / INITIALIZING EXPERIENCE SCREEN -->
+  <div id="preloader" onclick="dismissPreloader()" class="fixed inset-0 z-50 bg-midnight flex flex-col items-center justify-center p-6 cursor-pointer transition-opacity duration-500">
+    <div class="w-full max-w-md space-y-5 text-center">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-slateCard border border-iceBlue/50 text-iceBlue font-display font-black text-2xl tracking-tight shadow-lg shadow-iceBlue/20">
+        RAR
+      </div>
+      <div class="space-y-1.5">
+        <p class="font-mono text-xs sm:text-sm font-bold tracking-[0.22em] text-iceBlue uppercase">
+          RAR // INITIALIZING EXPERIENCE
+        </p>
+        <p class="font-mono text-[11px] text-mutedSlate">
+          Loading AI Research, IoT Telemetry & Network Architecture...
+        </p>
+      </div>
+      <!-- Progress Bar -->
+      <div class="w-full h-1.5 bg-slateCard rounded-full overflow-hidden border border-slate-800">
+        <div id="preloader-bar" class="h-full bg-gradient-to-r from-sky-500 via-iceBlue to-blue-400 w-0 transition-all duration-300"></div>
+      </div>
+      <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest">
+        Click anywhere to skip
+      </p>
+    </div>
+  </div>
+
+  <!-- TOAST BANNER (Zero alert() usage) -->
+  <div id="toast-banner" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-slateCard text-platinum px-5 py-3.5 rounded-xl shadow-2xl border border-iceBlue/40 flex items-center gap-3 backdrop-blur-md">
+      <i class="fa-solid fa-circle-check text-iceBlue text-lg"></i>
+      <span id="toast-text" class="text-sm font-medium">Action completed!</span>
+    </div>
+  </div>
+
+  <!-- 2. STICKY TOP NAVIGATION BAR -->
+  <nav class="sticky top-0 z-40 bg-white/85 dark:bg-midnight/85 backdrop-blur-xl border-b border-slate-300/70 dark:border-slate-800/90 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- RAR Monogram Brand -->
+        <a href="#home" class="flex items-center gap-3 group">
+          <div class="px-3 h-10 bg-slateCard border border-iceBlue/40 text-iceBlue font-display font-black text-base tracking-wider flex items-center justify-center rounded-xl shadow-md group-hover:bg-iceBlue group-hover:text-midnight transition-all">
+            RAR
+          </div>
+          <div class="hidden sm:flex flex-col">
+            <span class="font-display font-extrabold text-base tracking-tight text-slate-900 dark:text-platinum leading-none">
+              MD Rajibul Alam Rajib
+            </span>
+            <span class="font-mono text-[10px] uppercase tracking-widest text-slate-500 dark:text-mutedSlate mt-1">
+              AI • IoT • Network & Security
+            </span>
+          </div>
+        </a>
+
+        <!-- Center Navigation Links -->
+        <div class="hidden lg:flex items-center space-x-7">
+          <a href="#home" class="text-sm font-semibold text-slate-600 dark:text-mutedSlate hover:text-sky-600 dark:hover:text-iceBlue transition-colors">Home</a>
+          <a href="#education" class="text-sm font-semibold text-slate-600 dark:text-mutedSlate hover:text-sky-600 dark:hover:text-iceBlue transition-colors">Education</a>
+          <a href="#projects" class="text-sm font-semibold text-slate-600 dark:text-mutedSlate hover:text-sky-600 dark:hover:text-iceBlue transition-colors">Projects</a>
+          <a href="#activities" class="text-sm font-semibold text-slate-600 dark:text-mutedSlate hover:text-sky-600 dark:hover:text-iceBlue transition-colors">Activities</a>
+          <a href="#cv-section" class="text-sm font-semibold text-slate-600 dark:text-mutedSlate hover:text-sky-600 dark:hover:text-iceBlue transition-colors">Curriculum Vitae</a>
+          <a href="#about-me" class="text-sm font-semibold text-slate-600 dark:text-mutedSlate hover:text-sky-600 dark:hover:text-iceBlue transition-colors">About Me</a>
+        </div>
+
+        <!-- Right Controls: GitHub Coming Soon Pill + Theme Toggle -->
+        <div class="hidden sm:flex items-center gap-3">
+          <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-400/30 text-amber-800 dark:text-amber-300 font-mono text-xs font-semibold">
+            <i class="fa-brands fa-github"></i>
+            <span>GitHub: Coming Soon</span>
+          </span>
+          <button onclick="toggleContrastTheme()" title="Toggle Light / Slate Dark Contrast" class="p-2.5 rounded-xl bg-slate-200/90 dark:bg-slateCard border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-iceBlue hover:border-iceBlue transition-all">
+            <i id="theme-icon" class="fa-solid fa-sun text-sm"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Menu & Theme Buttons -->
+        <div class="flex lg:hidden items-center gap-2">
+          <button onclick="toggleContrastTheme()" aria-label="Toggle Theme" class="p-2.5 rounded-xl bg-slate-200 dark:bg-slateCard text-slate-800 dark:text-iceBlue border border-slate-300 dark:border-slate-700">
+            <i id="mobile-theme-icon" class="fa-solid fa-sun text-base"></i>
+          </button>
+          <button id="mobile-menu-btn" aria-label="Open Navigation Menu" class="p-2.5 rounded-xl text-slate-800 dark:text-platinum hover:bg-slate-200 dark:hover:bg-slateCard">
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-white dark:bg-charcoal border-b border-slate-200 dark:border-slate-800 px-6 py-5 space-y-3">
+      <a href="#home" class="block py-2 text-base font-semibold text-slate-800 dark:text-platinum hover:text-iceBlue">Home</a>
+      <a href="#education" class="block py-2 text-base font-semibold text-slate-800 dark:text-platinum hover:text-iceBlue">Education</a>
+      <a href="#projects" class="block py-2 text-base font-semibold text-slate-800 dark:text-platinum hover:text-iceBlue">Projects</a>
+      <a href="#activities" class="block py-2 text-base font-semibold text-slate-800 dark:text-platinum hover:text-iceBlue">Activities</a>
+      <a href="#cv-section" class="block py-2 text-base font-semibold text-slate-800 dark:text-platinum hover:text-iceBlue">Curriculum Vitae</a>
+      <a href="#about-me" class="block py-2 text-base font-semibold text-slate-800 dark:text-platinum hover:text-iceBlue">About Me</a>
+      <div class="pt-3 border-t border-slate-200 dark:border-slate-800">
+        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-400/30 text-amber-800 dark:text-amber-300 font-mono text-xs">
+          <i class="fa-brands fa-github"></i> GitHub: Coming Soon
+        </span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 3. HERO SECTION (SPLIT 2-COLUMN EXECUTIVE LAYOUT) -->
+  <header id="home" class="relative bg-architect-grid border-b border-slate-300/70 dark:border-slate-800/90 pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+        
+        <!-- Left Column -->
+        <div class="lg:col-span-7 space-y-6">
+          <!-- Greeting Badge -->
+          <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full surface-card">
+            <span class="w-2.5 h-2.5 rounded-full bg-iceBlue animate-pulse"></span>
+            <span class="font-mono text-xs font-bold tracking-wider uppercase text-sky-700 dark:text-iceBlue">
+              Hello, I'm
+            </span>
+          </div>
+
+          <!-- Bold Name & Dynamic Typing Role -->
+          <div class="space-y-3">
+            <h1 class="font-display font-black text-4xl sm:text-5xl lg:text-6xl text-slate-900 dark:text-platinum tracking-tight leading-[1.08]">
+              MD Rajibul Alam <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-iceBlue to-blue-400">Rajib</span>
+            </h1>
+            <div class="font-display font-bold text-lg sm:text-2xl text-slate-700 dark:text-slate-200 min-h-[2.25rem]">
+              I'm a <span id="typed-role" class="text-sky-600 dark:text-iceBlue typing-cursor">AI & Machine Learning Researcher</span>
+            </div>
+          </div>
+
+          <!-- Executive Bio -->
+          <p class="text-base sm:text-lg text-slate-600 dark:text-mutedSlate leading-relaxed max-w-2xl">
+            B.Sc. in Computer Science and Engineering candidate at <strong class="text-slate-900 dark:text-platinum">Daffodil International University (DIU)</strong>. Focused on predictive healthcare modeling through my completed <strong class="text-slate-900 dark:text-platinum">AI Diabetes Risk Prediction Thesis</strong>, real-time <strong class="text-slate-900 dark:text-platinum">ESP32 IoT SMS telemetry</strong>, and resilient <strong class="text-slate-900 dark:text-platinum">Cisco Packet Tracer</strong> hybrid network architectures.
+          </p>
+
+          <!-- Primary CTA Buttons -->
+          <div class="flex flex-wrap items-center gap-4 pt-1">
+            <button onclick="downloadExecutiveCV()" class="px-7 py-3.5 bg-iceBlue hover:bg-steelSky text-midnight font-display font-bold rounded-xl shadow-lg shadow-iceBlue/25 transition-all flex items-center gap-2.5">
+              <i class="fa-solid fa-file-arrow-down"></i>
+              <span>Download CV</span>
+            </button>
+            <a href="#projects" class="px-7 py-3.5 surface-card hover:border-iceBlue text-slate-900 dark:text-platinum font-display font-bold rounded-xl transition-all flex items-center gap-2.5">
+              <span>Explore My Projects</span>
+              <i class="fa-solid fa-arrow-down text-xs text-sky-600 dark:text-iceBlue"></i>
+            </a>
+          </div>
+
+          <!-- Social & Quick Connect Bar -->
+          <div class="pt-5 border-t border-slate-300/70 dark:border-slate-800 space-y-3">
+            <div class="flex flex-wrap items-center gap-3 text-xs sm:text-sm font-mono">
+              <!-- LinkedIn -->
+              <a href="https://www.linkedin.com/in/md-rajibul-alam-rajib-86966728a" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 surface-card rounded-xl text-slate-800 dark:text-platinum hover:border-iceBlue hover:text-sky-600 dark:hover:text-iceBlue transition-all">
+                <i class="fa-brands fa-linkedin text-sky-500 text-base"></i>
+                <span>LinkedIn</span>
+              </a>
+
+              <!-- Copy Email -->
+              <button onclick="copyToClipboard('rajib2305101812@diu.edu.bd', 'University email copied to clipboard!')" class="inline-flex items-center gap-2 px-3.5 py-2 surface-card rounded-xl text-slate-800 dark:text-platinum hover:border-iceBlue hover:text-sky-600 dark:hover:text-iceBlue transition-all">
+                <i class="fa-regular fa-envelope text-sky-600 dark:text-iceBlue"></i>
+                <span>rajib2305101812@diu.edu.bd</span>
+                <i class="fa-regular fa-copy text-slate-400 text-xs"></i>
+              </button>
+
+              <!-- Copy Phone -->
+              <button onclick="copyToClipboard('+8801310511163', 'Phone number copied!')" class="inline-flex items-center gap-2 px-3.5 py-2 surface-card rounded-xl text-slate-800 dark:text-platinum hover:border-iceBlue hover:text-sky-600 dark:hover:text-iceBlue transition-all">
+                <i class="fa-solid fa-phone text-emerald-500"></i>
+                <span>+880 1310-511163</span>
+              </button>
+            </div>
+
+            <!-- GitHub Status Pill -->
+            <div>
+              <span class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-400/30 text-amber-800 dark:text-amber-300 font-mono text-xs">
+                <i class="fa-brands fa-github text-sm"></i>
+                <span><strong>GitHub</strong> — Repositories in Active Preparation</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Framed Portrait Card with Corner Tech Brackets -->
+        <div class="lg:col-span-5 flex justify-center lg:justify-end">
+          <div class="relative w-full max-w-md">
+            <!-- Studio Slate-Blue Ambient Glow -->
+            <div class="absolute -inset-3 bg-gradient-to-tr from-sky-500/25 via-steelSky/15 to-slate-700/30 rounded-3xl blur-xl"></div>
+
+            <!-- Main Framed Portrait Card -->
+            <div class="relative surface-card portrait-glow rounded-2xl p-4 sm:p-5">
+              <!-- Corner Tech Brackets -->
+              <span class="absolute top-2.5 left-2.5 w-5 h-5 border-t-2 border-l-2 border-iceBlue rounded-tl-md pointer-events-none z-20"></span>
+              <span class="absolute top-2.5 right-2.5 w-5 h-5 border-t-2 border-r-2 border-iceBlue rounded-tr-md pointer-events-none z-20"></span>
+              <span class="absolute bottom-2.5 left-2.5 w-5 h-5 border-b-2 border-l-2 border-iceBlue rounded-bl-md pointer-events-none z-20"></span>
+              <span class="absolute bottom-2.5 right-2.5 w-5 h-5 border-b-2 border-r-2 border-iceBlue rounded-br-md pointer-events-none z-20"></span>
+
+              <!-- Portrait Container -->
+              <div class="relative aspect-[4/4.6] w-full rounded-xl overflow-hidden bg-gradient-to-b from-[#6C809A] to-[#47586E] border border-iceBlue/30 group">
+                <img
+                  id="profile-photo-img"
+                  src="Professional Black Suit Portrait.png"
+                  alt="MD Rajibul Alam Rajib - Executive Suit Portrait"
+                  class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+                  onerror="handlePortraitFallback(this)"
+                />
+
+                <!-- Subtle Vignette -->
+                <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-midnight/95 via-midnight/45 to-transparent pointer-events-none"></div>
+
+                <!-- Floating Credential Badge -->
+                <div class="absolute bottom-3.5 left-3.5 right-3.5 flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-midnight/85 backdrop-blur-md border border-iceBlue/40 shadow-lg">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-iceBlue animate-ping"></span>
+                    <span class="font-mono text-[11px] font-bold tracking-wider text-platinum uppercase">
+                      B.Sc. CSE • DIU • CGPA 3.57
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Interactive 'Change Photo' Upload Fallback -->
+                <label for="photo-upload-input" class="no-print absolute top-3 right-3 cursor-pointer px-3 py-1.5 bg-midnight/80 hover:bg-iceBlue text-platinum hover:text-midnight text-xs font-mono font-semibold rounded-lg backdrop-blur-md border border-white/15 transition-all flex items-center gap-1.5 shadow-md">
+                  <i class="fa-solid fa-camera"></i>
+                  <span>Change Photo</span>
+                </label>
+                <input type="file" id="photo-upload-input" accept="image/*" class="hidden" onchange="previewProfilePhoto(event)" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- 4. EXPERTISE OVERVIEW SECTION ('CRAFTING TECHNICAL IMPACT') -->
+  <section id="expertise" class="py-20 lg:py-24 bg-slate-100/80 dark:bg-charcoal border-b border-slate-300/70 dark:border-slate-800/90">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="space-y-2 mb-12 reveal">
+        <span class="font-mono text-xs font-bold uppercase tracking-widest text-sky-600 dark:text-iceBlue">
+          01 // Core Pillars
+        </span>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-platinum tracking-tight">
+          Crafting Technical Impact
+        </h2>
+        <p class="text-slate-600 dark:text-mutedSlate max-w-2xl text-sm sm:text-base">
+          Bridging machine learning research, embedded sensor hardware, and enterprise network defense.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+        <!-- Pillar 1: AI & Predictive Analytics -->
+        <div class="surface-card reveal rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-sky-500/15 border border-iceBlue/30 text-sky-600 dark:text-iceBlue flex items-center justify-center text-xl mb-5">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <h3 class="font-display font-bold text-xl text-slate-900 dark:text-platinum mb-2.5">
+              AI & Predictive Analytics
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-mutedSlate leading-relaxed mb-6">
+              Developing data-driven supervised learning models and non-invasive predictive healthcare pipelines validated in cloud compute environments.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-200 dark:border-slate-700/80">
+            <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-200">Python</span>
+            <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-200">Google Colab</span>
+            <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-200">Machine Learning</span>
+            <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-200">Data Analysis</span>
+            <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-200">Scikit-Learn</span>
+          </div>
+        </div>
+
+        <!-- Pillar 2: IoT & Embedded Systems -->
+        <div class="surface-card reveal rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-sky-500/15 border border-iceBlue/30 text-sky-600 dark:text-iceBlue flex items-center justify-center text-xl mb-5">
+              <i class="fa-solid fa-microchip"></i>
+            </div>
+            <h3 class="font-display font-bold text-xl text-slate-900 dark:text-platinum mb-2.5">
+              IoT & Embedded Systems
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-mutedSlate leading-relaxed mb-6">
+              Engineering resilient microcontroller systems that monitor environmental thresholds and dispatch automated remote GSM/SMS emergency alerts.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-200 dark:border-slate-700/80">
+            <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-200">ESP32</span>
+            <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-200">SMS Alert Telemetry</span>
+            <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-200">Sensor Integration</span>
+            <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-200">Real-Time Monitoring</span>
+          </div>
+        </div>
+
+        <!-- Pillar 3: Networking & Cybersecurity -->
+        <div class="surface-card reveal rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-sky-500/15 border border-iceBlue/30 text-sky-600 dark:text-iceBlue flex items-center justify-center text-xl mb-5">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3 class="font-display font-bold text-xl text-slate-900 dark:text-platinum mb-2.5">
+              Networking & Cybersecurity
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-mutedSlate leading-relaxed mb-6">
+              Architecting segmented hybrid enterprise networks with automated DHCP alongside traffic inspection, reconnaissance, and digital forensics.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-200 dark:border-slate-700/80">
+            <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-200">TCP/IP & OSI</span>
+            <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-200">Cisco Packet Tracer</span>
+            <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-200">DHCP Hybrid</span>
+            <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-200">Wireshark</span>
+            <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-200">Nmap</span>
+            <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-200">Autopsy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. ANIMATED COUNTER STATS STRIP -->
+  <section id="stats-strip" class="py-14 bg-architect-grid border-b border-slate-300/70 dark:border-slate-800/90">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 reveal">
+        <div class="surface-card rounded-2xl p-6 text-center">
+          <p class="font-display font-black text-3xl sm:text-4xl text-sky-600 dark:text-iceBlue">
+            <span class="stat-counter" data-target="3" data-suffix="+">0</span>
+          </p>
+          <p class="font-mono text-xs uppercase tracking-wider text-slate-600 dark:text-mutedSlate mt-2">
+            Completed Technical Projects
+          </p>
+        </div>
+        <div class="surface-card rounded-2xl p-6 text-center">
+          <p class="font-display font-black text-3xl sm:text-4xl text-slate-900 dark:text-platinum">
+            <span class="stat-counter" data-target="3.57" data-decimals="2">0.00</span>
+          </p>
+          <p class="font-mono text-xs uppercase tracking-wider text-slate-600 dark:text-mutedSlate mt-2">
+            Current B.Sc. CGPA (Out of 4.00)
+          </p>
+        </div>
+        <div class="surface-card rounded-2xl p-6 text-center">
+          <p class="font-display font-black text-3xl sm:text-4xl text-emerald-600 dark:text-emerald-400">
+            <span class="stat-counter" data-target="5.00" data-decimals="2">0.00</span>
+          </p>
+          <p class="font-mono text-xs uppercase tracking-wider text-slate-600 dark:text-mutedSlate mt-2">
+            GPA in Both SSC & HSC
+          </p>
+        </div>
+        <div class="surface-card rounded-2xl p-6 text-center">
+          <p class="font-display font-black text-3xl sm:text-4xl text-amber-600 dark:text-amber-300">
+            <span class="stat-counter" data-target="2019">0</span>
+          </p>
+          <p class="font-mono text-xs uppercase tracking-wider text-slate-600 dark:text-mutedSlate mt-2">
+            Best Delegate Award (NSTU MUN)
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. PROJECTS SECTION ('FEATURED ENGINEERING & RESEARCH') -->
+  <section id="projects" class="py-20 lg:py-28 bg-slate-100/80 dark:bg-charcoal border-b border-slate-300/70 dark:border-slate-800/90">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Header + Interactive Category Filter -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 reveal">
+        <div class="space-y-2">
+          <span class="font-mono text-xs font-bold uppercase tracking-widest text-sky-600 dark:text-iceBlue">
+            02 // Portfolio Showcase
+          </span>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-platinum tracking-tight">
+            Featured Engineering & Research
+          </h2>
+          <p class="text-slate-600 dark:text-mutedSlate max-w-2xl text-sm sm:text-base">
+            Filter across my completed final-year AI thesis, IoT SMS hardware prototype, and enterprise hybrid network simulation.
+          </p>
+        </div>
+
+        <div class="inline-flex flex-wrap gap-1.5 surface-card p-1.5 rounded-xl self-start">
+          <button onclick="filterProjects('all', this)" class="filter-btn active px-4 py-2 rounded-lg text-xs font-bold bg-iceBlue text-midnight transition-all">
+            All (3)
+          </button>
+          <button onclick="filterProjects('ai', this)" class="filter-btn px-4 py-2 rounded-lg text-xs font-semibold text-slate-600 dark:text-mutedSlate hover:text-slate-900 dark:hover:text-platinum transition-all">
+            AI & ML
+          </button>
+          <button onclick="filterProjects('iot', this)" class="filter-btn px-4 py-2 rounded-lg text-xs font-semibold text-slate-600 dark:text-mutedSlate hover:text-slate-900 dark:hover:text-platinum transition-all">
+            IoT Hardware
+          </button>
+          <button onclick="filterProjects('network', this)" class="filter-btn px-4 py-2 rounded-lg text-xs font-semibold text-slate-600 dark:text-mutedSlate hover:text-slate-900 dark:hover:text-platinum transition-all">
+            Networking
+          </button>
+        </div>
+      </div>
+
+      <!-- 3 Project Cards -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Project 1: AI-Driven Early Diabetes Risk Prediction System -->
+        <article data-category="ai" class="project-card surface-card reveal rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-5">
+              <span class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-700 dark:text-emerald-300 font-mono text-xs font-semibold">
+                <i class="fa-solid fa-circle-check mr-1"></i> Thesis Completed
+              </span>
+              <span class="font-mono text-xs font-semibold text-sky-700 dark:text-iceBlue bg-sky-500/15 border border-sky-400/30 px-2.5 py-1 rounded-lg">
+                Google Colab
+              </span>
+            </div>
+
+            <div class="w-12 h-12 rounded-xl bg-sky-500/15 border border-iceBlue/30 text-sky-600 dark:text-iceBlue flex items-center justify-center text-xl mb-5">
+              <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+
+            <h3 class="font-display font-bold text-xl text-slate-900 dark:text-platinum leading-snug mb-3">
+              AI-Driven Early Diabetes Risk Prediction System
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-mutedSlate leading-relaxed mb-5">
+              Final Year Thesis completed on <strong>Google Colab</strong>. Leverages non-invasive health indicators and supervised predictive modeling to support early, preventive medical decision-making.
+            </p>
+
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-300">Python</span>
+              <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-300">Scikit-Learn</span>
+              <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-300">Google Colab</span>
+              <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-300">Predictive ML</span>
+            </div>
+          </div>
+
+          <div class="pt-5 border-t border-slate-200 dark:border-slate-700/80 space-y-3">
+            <div class="flex items-center justify-between text-xs font-mono text-amber-800 dark:text-amber-300 bg-amber-500/10 px-3 py-2 rounded-lg border border-amber-400/25">
+              <span><i class="fa-brands fa-github mr-1.5"></i>GitHub: Codebase Preparing</span>
+            </div>
+            <button onclick="openProjectModal('diabetes')" class="w-full py-2.5 px-4 inner-box hover:bg-iceBlue hover:text-midnight hover:border-iceBlue text-slate-900 dark:text-platinum font-semibold text-sm rounded-xl transition-all flex items-center justify-center gap-2">
+              <span>View Architecture</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+            </button>
+          </div>
+        </article>
+
+        <!-- Project 2: ESP32-Based IoT Flood Monitoring & SMS Alert System -->
+        <article data-category="iot" class="project-card surface-card reveal rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-5">
+              <span class="px-3 py-1 rounded-full bg-sky-500/15 border border-sky-400/30 text-sky-700 dark:text-iceBlue font-mono text-xs font-semibold">
+                <i class="fa-solid fa-microchip mr-1"></i> Hardware Prototype
+              </span>
+              <span class="font-mono text-xs font-semibold text-slate-700 dark:text-slate-200 inner-box px-2.5 py-1 rounded-lg">
+                ESP32 + SMS
+              </span>
+            </div>
+
+            <div class="w-12 h-12 rounded-xl bg-sky-500/15 border border-iceBlue/30 text-sky-600 dark:text-iceBlue flex items-center justify-center text-xl mb-5">
+              <i class="fa-solid fa-tower-broadcast"></i>
+            </div>
+
+            <h3 class="font-display font-bold text-xl text-slate-900 dark:text-platinum leading-snug mb-3">
+              ESP32-Based IoT Flood Monitoring & SMS Alert System
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-mutedSlate leading-relaxed mb-5">
+              Real-time water level and rainfall sensing hardware engineered on <strong>ESP32</strong> with automated <strong>GSM/SMS remote alerts</strong> for immediate community flood warnings without Wi-Fi dependency.
+            </p>
+
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-300">ESP32</span>
+              <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-300">GSM / SMS Alert</span>
+              <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-300">Water & Rain Sensors</span>
+              <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-300">Embedded C++</span>
+            </div>
+          </div>
+
+          <div class="pt-5 border-t border-slate-200 dark:border-slate-700/80 space-y-3">
+            <div class="flex items-center justify-between text-xs font-mono text-amber-800 dark:text-amber-300 bg-amber-500/10 px-3 py-2 rounded-lg border border-amber-400/25">
+              <span><i class="fa-brands fa-github mr-1.5"></i>GitHub: Codebase Preparing</span>
+            </div>
+            <button onclick="openProjectModal('iot')" class="w-full py-2.5 px-4 inner-box hover:bg-iceBlue hover:text-midnight hover:border-iceBlue text-slate-900 dark:text-platinum font-semibold text-sm rounded-xl transition-all flex items-center justify-center gap-2">
+              <span>View Architecture</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+            </button>
+          </div>
+        </article>
+
+        <!-- Project 3: Industrial Hybrid Network Topology with DHCP -->
+        <article data-category="network" class="project-card surface-card reveal rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-5">
+              <span class="px-3 py-1 rounded-full bg-indigo-500/15 border border-indigo-400/30 text-indigo-700 dark:text-indigo-300 font-mono text-xs font-semibold">
+                <i class="fa-solid fa-network-wired mr-1"></i> Enterprise Simulation
+              </span>
+              <span class="font-mono text-xs font-semibold text-sky-700 dark:text-iceBlue bg-sky-500/15 border border-sky-400/30 px-2.5 py-1 rounded-lg">
+                Packet Tracer
+              </span>
+            </div>
+
+            <div class="w-12 h-12 rounded-xl bg-sky-500/15 border border-iceBlue/30 text-sky-600 dark:text-iceBlue flex items-center justify-center text-xl mb-5">
+              <i class="fa-solid fa-server"></i>
+            </div>
+
+            <h3 class="font-display font-bold text-xl text-slate-900 dark:text-platinum leading-snug mb-3">
+              Industrial Hybrid Network Topology with DHCP
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-mutedSlate leading-relaxed mb-5">
+              Simulated in <strong>Cisco Packet Tracer</strong>—a multi-department industrial hybrid network architecture featuring VLAN segmentation, structured routing & switching, and automated <strong>DHCP</strong> IP allocation.
+            </p>
+
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-300">Cisco Packet Tracer</span>
+              <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-300">Automated DHCP</span>
+              <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-300">Routing & Switching</span>
+              <span class="px-2.5 py-1 inner-box rounded-md font-mono text-xs text-slate-700 dark:text-slate-300">VLANs</span>
+            </div>
+          </div>
+
+          <div class="pt-5 border-t border-slate-200 dark:border-slate-700/80 space-y-3">
+            <div class="flex items-center justify-between text-xs font-mono text-amber-800 dark:text-amber-300 bg-amber-500/10 px-3 py-2 rounded-lg border border-amber-400/25">
+              <span><i class="fa-brands fa-github mr-1.5"></i>GitHub: Codebase Preparing</span>
+            </div>
+            <button onclick="openProjectModal('network')" class="w-full py-2.5 px-4 inner-box hover:bg-iceBlue hover:text-midnight hover:border-iceBlue text-slate-900 dark:text-platinum font-semibold text-sm rounded-xl transition-all flex items-center justify-center gap-2">
+              <span>View Architecture</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. EDUCATION & CREDENTIALS SECTION -->
+  <section id="education" class="py-20 lg:py-28 bg-architect-grid border-b border-slate-300/70 dark:border-slate-800/90">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="space-y-2 mb-14 reveal">
+        <span class="font-mono text-xs font-bold uppercase tracking-widest text-sky-600 dark:text-iceBlue">
+          03 // Academic Journey
+        </span>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-platinum tracking-tight">
+          Education & Credentials
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-7 reveal">
+        <!-- B.Sc. CSE -->
+        <div class="surface-card rounded-2xl p-7 relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-1.5 bg-iceBlue"></div>
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="font-mono text-xs font-bold uppercase text-sky-700 dark:text-iceBlue bg-sky-500/15 px-3 py-1 rounded-full">
+              Expected: Dec 2027
+            </span>
+            <span class="font-mono text-sm font-bold text-slate-900 dark:text-platinum inner-box px-3 py-1 rounded-lg">
+              CGPA: 3.57 / 4.00
+            </span>
+          </div>
+          <h3 class="font-display font-bold text-xl text-slate-900 dark:text-platinum mb-1">
+            B.Sc. in Computer Science & Engineering (CSE)
+          </h3>
+          <p class="text-sm font-semibold text-sky-600 dark:text-steelSky mb-3">
+            Daffodil International University (DIU)
+          </p>
+          <p class="text-xs text-slate-600 dark:text-mutedSlate leading-relaxed">
+            Focused on Artificial Intelligence research, Computer Networking infrastructure, IoT systems engineering, and Cybersecurity fundamentals.
+          </p>
+        </div>
+
+        <!-- HSC (2021) -->
+        <div class="surface-card rounded-2xl p-7 relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-1.5 bg-steelSky"></div>
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="font-mono text-xs font-bold uppercase text-slate-600 dark:text-mutedSlate inner-box px-3 py-1 rounded-full">
+              Passing Year: 2021
+            </span>
+            <span class="font-mono text-sm font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-500/15 px-3 py-1 rounded-lg">
+              GPA: 5.00
+            </span>
+          </div>
+          <h3 class="font-display font-bold text-xl text-slate-900 dark:text-platinum mb-1">
+            Higher Secondary Certificate (HSC)
+          </h3>
+          <p class="text-sm font-semibold text-sky-600 dark:text-steelSky mb-3">
+            Bogura Cantonment Public School and College, Bogura
+          </p>
+          <p class="text-xs text-slate-600 dark:text-mutedSlate leading-relaxed">
+            Science Group — Graduated with top academic distinction (GPA 5.00 out of 5.00) with strong foundations in Mathematics and Physics.
+          </p>
+        </div>
+
+        <!-- SSC (2019) -->
+        <div class="surface-card rounded-2xl p-7 relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-1.5 bg-emerald-400"></div>
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="font-mono text-xs font-bold uppercase text-slate-600 dark:text-mutedSlate inner-box px-3 py-1 rounded-full">
+              Passing Year: 2019
+            </span>
+            <span class="font-mono text-sm font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-500/15 px-3 py-1 rounded-lg">
+              GPA: 5.00
+            </span>
+          </div>
+          <h3 class="font-display font-bold text-xl text-slate-900 dark:text-platinum mb-1">
+            Secondary School Certificate (SSC)
+          </h3>
+          <p class="text-sm font-semibold text-sky-600 dark:text-steelSky mb-3">
+            Udaypur High School, Sujanagar, Pabna
+          </p>
+          <p class="text-xs text-slate-600 dark:text-mutedSlate leading-relaxed">
+            Science Group — Achieved perfect GPA 5.00 alongside early excellence in public speaking and inter-school leadership.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. ACTIVITIES, LEADERSHIP & AWARDS SECTION -->
+  <section id="activities" class="py-20 lg:py-28 bg-slate-100/80 dark:bg-charcoal border-b border-slate-300/70 dark:border-slate-800/90">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="space-y-2 mb-14 reveal">
+        <span class="font-mono text-xs font-bold uppercase tracking-widest text-sky-600 dark:text-iceBlue">
+          04 // Leadership, Honors & Continuous Tracks
+        </span>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-platinum tracking-tight">
+          Activities, Leadership & Awards
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 reveal">
+        <!-- Left 5 Cols: Best Delegate Award & DIU Clubs -->
+        <div class="lg:col-span-5 space-y-6">
+          <!-- Best Delegate Award Card -->
+          <div class="surface-card rounded-2xl p-7 border-amber-400/35">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-400/15 border border-amber-400/40 text-amber-500 dark:text-amber-300 flex items-center justify-center text-2xl">
+                <i class="fa-solid fa-trophy"></i>
+              </div>
+              <div>
+                <span class="font-mono text-[11px] uppercase tracking-widest text-amber-600 dark:text-amber-300 font-bold">
+                  Honors & Distinction
+                </span>
+                <h3 class="font-display font-extrabold text-xl text-slate-900 dark:text-platinum">
+                  Best Delegate Award
+                </h3>
+              </div>
+            </div>
+            <p class="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">
+              NSTU Model United Nations 2019
+            </p>
+            <p class="text-xs font-mono text-sky-700 dark:text-iceBlue inner-box px-3 py-2 rounded-lg mb-3">
+              Committee: United Nations Human Rights Council (UNHRC)
+            </p>
+            <p class="text-sm text-slate-600 dark:text-mutedSlate leading-relaxed">
+              Recognized for strategic diplomacy, resolution drafting, and authoritative public speaking under competitive committee pressure.
+            </p>
+          </div>
+
+          <!-- Campus Organizations (HDRI & Skill Up Club) -->
+          <div class="surface-card rounded-2xl p-7">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-sky-500/15 text-sky-600 dark:text-iceBlue flex items-center justify-center">
+                <i class="fa-solid fa-users-gear"></i>
+              </div>
+              <h3 class="font-display font-bold text-lg text-slate-900 dark:text-platinum">
+                DIU Campus Organizations
+              </h3>
+            </div>
+            <p class="text-sm text-slate-600 dark:text-mutedSlate leading-relaxed mb-4">
+              Engaged in university skill-building initiatives, collaborative workshops, and peer knowledge-sharing programs at Daffodil International University.
+            </p>
+            <div class="flex flex-wrap gap-2.5">
+              <span class="px-3.5 py-1.5 rounded-lg bg-sky-500/15 border border-iceBlue/35 font-mono text-xs font-bold text-sky-700 dark:text-iceBlue">
+                HDRI (DIU)
+              </span>
+              <span class="px-3.5 py-1.5 rounded-lg bg-sky-500/15 border border-iceBlue/35 font-mono text-xs font-bold text-sky-700 dark:text-iceBlue">
+                Skill Up Club (DIU)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 7 Cols: Ongoing Technical Tracks -->
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="surface-card rounded-2xl p-6">
+            <span class="inline-block font-mono text-[11px] font-bold uppercase text-emerald-700 dark:text-emerald-400 bg-emerald-500/15 px-2.5 py-1 rounded-md mb-3">
+              Ongoing Track
+            </span>
+            <h4 class="font-display font-bold text-lg text-slate-900 dark:text-platinum mb-2">
+              Computer Networking & Infrastructure
+            </h4>
+            <p class="text-sm text-slate-600 dark:text-mutedSlate leading-relaxed">
+              Actively mastering TCP/IP, OSI Model diagnostics, Routing & Switching, network configuration, and enterprise troubleshooting.
+            </p>
+          </div>
+
+          <div class="surface-card rounded-2xl p-6">
+            <span class="inline-block font-mono text-[11px] font-bold uppercase text-sky-700 dark:text-iceBlue bg-sky-500/15 px-2.5 py-1 rounded-md mb-3">
+              Ongoing Track
+            </span>
+            <h4 class="font-display font-bold text-lg text-slate-900 dark:text-platinum mb-2">
+              Cybersecurity & Ethical Hacking
+            </h4>
+            <p class="text-sm text-slate-600 dark:text-mutedSlate leading-relaxed">
+              Exploring vulnerability assessment, penetration testing workflows, network defense, and web application security mitigation.
+            </p>
+          </div>
+
+          <div class="surface-card rounded-2xl p-6">
+            <span class="inline-block font-mono text-[11px] font-bold uppercase text-indigo-700 dark:text-indigo-300 bg-indigo-500/15 px-2.5 py-1 rounded-md mb-3">
+              Ongoing Track
+            </span>
+            <h4 class="font-display font-bold text-lg text-slate-900 dark:text-platinum mb-2">
+              Network Security & Digital Forensics
+            </h4>
+            <p class="text-sm text-slate-600 dark:text-mutedSlate leading-relaxed">
+              Building practical proficiency in packet traffic inspection (Wireshark), host discovery (Nmap), and forensic artifact investigation (Autopsy).
+            </p>
+          </div>
+
+          <div class="surface-card rounded-2xl p-6">
+            <span class="inline-block font-mono text-[11px] font-bold uppercase text-amber-700 dark:text-amber-300 bg-amber-500/15 px-2.5 py-1 rounded-md mb-3">
+              Ongoing Track
+            </span>
+            <h4 class="font-display font-bold text-lg text-slate-900 dark:text-platinum mb-2">
+              Technical Research & Innovation
+            </h4>
+            <p class="text-sm text-slate-600 dark:text-mutedSlate leading-relaxed">
+              Applying analytical reasoning and emerging AI/IoT technologies to solve real-world healthcare and environmental monitoring challenges.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. INTERACTIVE CURRICULUM VITAE (CV) & ABOUT ME SECTION -->
+  <section id="cv-section" class="py-20 lg:py-28 bg-architect-grid border-b border-slate-300/70 dark:border-slate-800/90">
+    <div id="about-me" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header with 1-Click Print / Save PDF CV -->
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 reveal">
+        <div class="space-y-2">
+          <span class="font-mono text-xs font-bold uppercase tracking-widest text-sky-600 dark:text-iceBlue">
+            05 // Executive Dossier
+          </span>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-platinum tracking-tight">
+            Curriculum Vitae & About Me
+          </h2>
+        </div>
+
+        <div class="flex flex-wrap gap-3 no-print">
+          <button onclick="window.print()" class="px-5 py-3 bg-iceBlue hover:bg-steelSky text-midnight font-display font-bold text-sm rounded-xl shadow-lg shadow-iceBlue/20 transition-all flex items-center gap-2">
+            <i class="fa-solid fa-print"></i>
+            <span>Print / Save PDF CV</span>
+          </button>
+          <button onclick="downloadExecutiveCV()" class="px-5 py-3 surface-card hover:border-iceBlue text-slate-900 dark:text-platinum font-semibold text-sm rounded-xl transition-all flex items-center gap-2">
+            <i class="fa-solid fa-download text-sky-600 dark:text-iceBlue"></i>
+            <span>Download Summary</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Structured Interactive Resume Card -->
+      <div class="surface-card reveal rounded-2xl p-6 sm:p-10 space-y-8">
+        <!-- Executive Summary / About Me -->
+        <div class="pb-7 border-b border-slate-200 dark:border-slate-700/80">
+          <h3 class="font-display font-bold text-lg text-sky-600 dark:text-iceBlue uppercase tracking-wider mb-3">
+            Executive Profile & Summary
+          </h3>
+          <p class="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
+            I am <strong>MD Rajibul Alam Rajib</strong>, a dedicated Computer Science and Engineering student at Daffodil International University (CGPA: 3.57/4.00) based in Dhaka, Bangladesh. I combine strong analytical problem-solving with hands-on execution across <strong>AI-driven preventive healthcare research</strong>, <strong>ESP32 IoT telemetry</strong>, <strong>enterprise Cisco networking</strong>, and <strong>cybersecurity/digital forensics</strong>. Recognized by faculty for self-motivation, leadership, and adaptability under pressure.
+          </p>
+        </div>
+
+        <!-- 3-Column Resume Matrix -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Technical Skills -->
+          <div class="space-y-4">
+            <h4 class="font-display font-bold text-base text-slate-900 dark:text-platinum flex items-center gap-2">
+              <i class="fa-solid fa-code text-sky-600 dark:text-iceBlue"></i>
+              <span>Technical Skills</span>
+            </h4>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 inner-box rounded-lg font-mono text-xs text-slate-800 dark:text-slate-200">Computer Networking (TCP/IP, OSI)</span>
+              <span class="px-3 py-1.5 inner-box rounded-lg font-mono text-xs text-slate-800 dark:text-slate-200">Routing & Switching (Cisco Packet Tracer)</span>
+              <span class="px-3 py-1.5 inner-box rounded-lg font-mono text-xs text-slate-800 dark:text-slate-200">Cybersecurity (Wireshark, Nmap, Autopsy)</span>
+              <span class="px-3 py-1.5 inner-box rounded-lg font-mono text-xs text-slate-800 dark:text-slate-200">Artificial Intelligence & Python</span>
+              <span class="px-3 py-1.5 inner-box rounded-lg font-mono text-xs text-slate-800 dark:text-slate-200">Adobe Photoshop</span>
+              <span class="px-3 py-1.5 inner-box rounded-lg font-mono text-xs text-slate-800 dark:text-slate-200">Microsoft Office (Word, PPT, Excel)</span>
+            </div>
+          </div>
+
+          <!-- Interpersonal & Leadership Skills -->
+          <div class="space-y-4">
+            <h4 class="font-display font-bold text-base text-slate-900 dark:text-platinum flex items-center gap-2">
+              <i class="fa-solid fa-chess-knight text-sky-600 dark:text-iceBlue"></i>
+              <span>Interpersonal Skills</span>
+            </h4>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 inner-box rounded-lg text-xs font-semibold text-slate-800 dark:text-slate-200">Leadership</span>
+              <span class="px-3 py-1.5 inner-box rounded-lg text-xs font-semibold text-slate-800 dark:text-slate-200">Public Speaking</span>
+              <span class="px-3 py-1.5 inner-box rounded-lg text-xs font-semibold text-slate-800 dark:text-slate-200">Project Management</span>
+              <span class="px-3 py-1.5 inner-box rounded-lg text-xs font-semibold text-slate-800 dark:text-slate-200">Critical Thinking</span>
+              <span class="px-3 py-1.5 inner-box rounded-lg text-xs font-semibold text-slate-800 dark:text-slate-200">Problem Solving</span>
+              <span class="px-3 py-1.5 inner-box rounded-lg text-xs font-semibold text-slate-800 dark:text-slate-200">Teamwork</span>
+              <span class="px-3 py-1.5 inner-box rounded-lg text-xs font-semibold text-slate-800 dark:text-slate-200">Communication</span>
+              <span class="px-3 py-1.5 inner-box rounded-lg text-xs font-semibold text-slate-800 dark:text-slate-200">Work Under Pressure</span>
+            </div>
+          </div>
+
+          <!-- Languages & Endorsements -->
+          <div class="space-y-4">
+            <h4 class="font-display font-bold text-base text-slate-900 dark:text-platinum flex items-center gap-2">
+              <i class="fa-solid fa-globe text-sky-600 dark:text-iceBlue"></i>
+              <span>Languages & Appreciations</span>
+            </h4>
+            <div class="space-y-2.5 font-mono text-xs">
+              <div class="flex items-center justify-between p-3 rounded-xl inner-box">
+                <span class="font-bold text-slate-900 dark:text-platinum">English</span>
+                <span class="text-sky-600 dark:text-iceBlue font-semibold">Advanced</span>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded-xl inner-box">
+                <span class="font-bold text-slate-900 dark:text-platinum">Bengali</span>
+                <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Native</span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-600 dark:text-mutedSlate leading-relaxed pt-1">
+              Commended for technical innovation, structured research documentation, and adaptability across multidisciplinary engineering teams.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. COLLABORATION CTA BANNER + 4-COLUMN EXECUTIVE FOOTER -->
+  <section id="collab-cta" class="py-16 bg-slate-100/80 dark:bg-charcoal border-b border-slate-300/70 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="surface-card rounded-3xl p-8 sm:p-12 relative overflow-hidden flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+        <div class="space-y-3 max-w-2xl">
+          <span class="font-mono text-xs font-bold uppercase tracking-widest text-sky-600 dark:text-iceBlue">
+            Ready to Collaborate
+          </span>
+          <h2 class="font-display font-extrabold text-2xl sm:text-4xl text-slate-900 dark:text-platinum tracking-tight">
+            Have a Research or Technical Project in Mind?
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600 dark:text-mutedSlate">
+            Available for AI & Machine Learning research collaborations, enterprise network topology design, IoT prototyping, and cybersecurity roles.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="mailto:rajib2305101812@diu.edu.bd" class="px-7 py-4 bg-iceBlue hover:bg-steelSky text-midnight font-display font-bold rounded-xl shadow-lg shadow-iceBlue/25 transition-all flex items-center gap-2.5">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Initiate Conversation</span>
+          </a>
+          <a href="https://www.linkedin.com/in/md-rajibul-alam-rajib-86966728a" target="_blank" rel="noopener noreferrer" class="px-6 py-4 inner-box hover:border-iceBlue text-slate-900 dark:text-platinum font-bold rounded-xl transition-all flex items-center gap-2">
+            <i class="fa-brands fa-linkedin text-sky-500 text-lg"></i>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4-COLUMN EXECUTIVE FOOTER -->
+  <footer class="bg-midnight text-platinum pt-16 pb-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800/90">
+        
+        <!-- Column 1: Direct Support & Phone -->
+        <div class="space-y-3">
+          <div class="inline-flex items-center gap-2.5">
+            <span class="px-2.5 py-1 rounded-lg bg-slateCard border border-iceBlue/40 text-iceBlue font-display font-black text-sm">RAR</span>
+            <span class="font-display font-bold text-base text-platinum">Direct Contact</span>
+          </div>
+          <p class="text-xs font-mono text-mutedSlate">
+            Available: Sun – Thu • 9:00 AM – 9:00 PM (BST)
+          </p>
+          <a href="tel:+8801310511163" class="inline-flex items-center gap-2 text-sm font-semibold text-iceBlue hover:underline">
+            <i class="fa-solid fa-phone"></i>
+            <span>+880 1310-511163</span>
+          </a>
+        </div>
+
+        <!-- Column 2: Location -->
+        <div class="space-y-3">
+          <h4 class="font-display font-bold text-sm uppercase tracking-wider text-platinum">
+            Location
+          </h4>
+          <p class="text-sm text-mutedSlate leading-relaxed">
+            <i class="fa-solid fa-location-dot text-iceBlue mr-1.5"></i>
+            West Matikata, Udayan Tower 4/F,<br />
+            Dhaka-1206, Bangladesh
+          </p>
+        </div>
+
+        <!-- Column 3: Quick Navigation -->
+        <div class="space-y-3">
+          <h4 class="font-display font-bold text-sm uppercase tracking-wider text-platinum">
+            Quick Navigation
+          </h4>
+          <ul class="space-y-2 text-sm text-mutedSlate">
+            <li><a href="#home" class="hover:text-iceBlue transition-colors">Home</a></li>
+            <li><a href="#projects" class="hover:text-iceBlue transition-colors">Projects & Thesis</a></li>
+            <li><a href="#education" class="hover:text-iceBlue transition-colors">Education</a></li>
+            <li><a href="#cv-section" class="hover:text-iceBlue transition-colors">Curriculum Vitae</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Stay Connected -->
+        <div class="space-y-3">
+          <h4 class="font-display font-bold text-sm uppercase tracking-wider text-platinum">
+            Stay Connected
+          </h4>
+          <div class="space-y-2 text-sm">
+            <button onclick="copyToClipboard('rajib2305101812@diu.edu.bd', 'Email copied!')" class="flex items-center gap-2 text-mutedSlate hover:text-iceBlue transition-colors text-left">
+              <i class="fa-regular fa-envelope text-iceBlue"></i>
+              <span class="truncate">rajib2305101812@diu.edu.bd</span>
+            </button>
+            <a href="https://www.linkedin.com/in/md-rajibul-alam-rajib-86966728a" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-mutedSlate hover:text-iceBlue transition-colors">
+              <i class="fa-brands fa-linkedin text-iceBlue"></i>
+              <span>LinkedIn Profile</span>
+            </a>
+            <p class="text-xs font-mono text-amber-300 pt-1">
+              <i class="fa-brands fa-github mr-1"></i> GitHub: Coming Soon
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Copyright -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-mutedSlate">
+        <p class="font-semibold text-platinum">RAR | Technical & Research Architect — © 2026 MD Rajibul Alam Rajib</p>
+        <p>Built with Precision • Dhaka, Bangladesh</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ARCHITECTURE INSPECTION MODAL -->
+  <div id="project-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-midnight/85 backdrop-blur-md">
+    <div class="bg-slateCard border border-iceBlue/35 rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative text-platinum">
+      <button onclick="closeProjectModal()" aria-label="Close modal" class="absolute top-5 right-5 w-9 h-9 rounded-lg bg-midnight hover:bg-iceBlue text-platinum hover:text-midnight border border-slate-700 flex items-center justify-center transition-colors">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div id="modal-body" class="space-y-5"></div>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE JAVASCRIPT -->
+  <script>
+    // 1. Preloader Progress & Smooth Fade-Out
+    const preloader = document.getElementById('preloader');
+    const preloaderBar = document.getElementById('preloader-bar');
+    let preloaderDismissed = false;
+
+    function dismissPreloader() {
+      if (preloaderDismissed) return;
+      preloaderDismissed = true;
+      preloader.style.opacity = '0';
+      setTimeout(() => {
+        preloader.style.display = 'none';
+      }, 450);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => { preloaderBar.style.width = '55%'; }, 80);
+      setTimeout(() => { preloaderBar.style.width = '100%'; }, 320);
+      setTimeout(dismissPreloader, 750);
+    });
+
+    // 2. Light / Slate Dark Contrast Toggle
+    function toggleContrastTheme() {
+      const htmlEl = document.documentElement;
+      const isDark = htmlEl.classList.toggle('dark');
+      const desktopIcon = document.getElementById('theme-icon');
+      const mobileIcon = document.getElementById('mobile-theme-icon');
+
+      if (isDark) {
+        desktopIcon.className = 'fa-solid fa-sun text-sm';
+        mobileIcon.className = 'fa-solid fa-sun text-base';
+        showToast('Midnight Slate Dark Theme Active');
+      } else {
+        desktopIcon.className = 'fa-solid fa-moon text-sm';
+        mobileIcon.className = 'fa-solid fa-moon text-base';
+        showToast('Crisp Slate Light Contrast Active');
+      }
+    }
+
+    // 3. Mobile Navigation Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // 4. Dynamic Typing Role Animation
+    const roles = [
+      'AI & Machine Learning Researcher',
+      'IoT Systems Developer',
+      'Network & Cybersecurity Enthusiast',
+      'CSE Student at DIU'
+    ];
+    let roleIdx = 0;
+    let charIdx = roles[0].length;
+    let isDeleting = true;
+    const typedRoleEl = document.getElementById('typed-role');
+
+    function typeRoleLoop() {
+      const currentRole = roles[roleIdx];
+      if (isDeleting) {
+        charIdx--;
+        typedRoleEl.textContent = currentRole.substring(0, charIdx);
+        if (charIdx === 0) {
+          isDeleting = false;
+          roleIdx = (roleIdx + 1) % roles.length;
+          setTimeout(typeRoleLoop, 350);
+          return;
+        }
+        setTimeout(typeRoleLoop, 38);
+      } else {
+        charIdx++;
+        typedRoleEl.textContent = currentRole.substring(0, charIdx);
+        if (charIdx === currentRole.length) {
+          isDeleting = true;
+          setTimeout(typeRoleLoop, 1800);
+          return;
+        }
+        setTimeout(typeRoleLoop, 68);
+      }
+    }
+    setTimeout(typeRoleLoop, 1800);
+
+    // 5. Scroll Reveal & Animated Counter Stats Strip
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    let countersAnimated = false;
+    const statsStrip = document.getElementById('stats-strip');
+    const counterObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !countersAnimated) {
+        countersAnimated = true;
+        document.querySelectorAll('.stat-counter').forEach(counter => {
+          const target = parseFloat(counter.dataset.target);
+          const decimals = parseInt(counter.dataset.decimals || '0', 10);
+          const suffix = counter.dataset.suffix || '';
+          const duration = 1200;
+          const startTime = performance.now();
+
+          function updateCounter(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const value = (target * eased).toFixed(decimals);
+            counter.textContent = value + suffix;
+            if (progress < 1) {
+              requestAnimationFrame(updateCounter);
+            } else {
+              counter.textContent = target.toFixed(decimals) + suffix;
+            }
+          }
+          requestAnimationFrame(updateCounter);
+        });
+      }
+    }, { threshold: 0.25 });
+    counterObserver.observe(statsStrip);
+
+    // 6. Toast Banner Helper (Zero alert() usage)
+    let toastTimer;
+    function showToast(msg) {
+      const toast = document.getElementById('toast-banner');
+      document.getElementById('toast-text').textContent = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3000);
+    }
+
+    // 7. Clipboard Copy Helper (Uses execCommand for iFrame compatibility)
+    function copyToClipboard(text, successMsg) {
+      const temp = document.createElement('textarea');
+      temp.value = text;
+      document.body.appendChild(temp);
+      temp.select();
+      try {
+        document.execCommand('copy');
+        showToast(successMsg);
+      } catch (e) {
+        showToast('Could not copy text.');
+      }
+      document.body.removeChild(temp);
+    }
+
+    // 8. Portrait Fallback & Local Photo Upload Preview
+    function handlePortraitFallback(img) {
+      img.onerror = null;
+      img.src = 'https://placehold.co/600x700/1E293B/38BDF8?text=MD+Rajibul+Alam+Rajib';
+    }
+
+    function previewProfilePhoto(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('profile-photo-img').src = e.target.result;
+        showToast('Portrait preview updated!');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // 9. Project Category Filter
+    function filterProjects(category, btnEl) {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-iceBlue', 'text-midnight', 'font-bold');
+        btn.classList.add('text-slate-600', 'dark:text-mutedSlate');
+      });
+      btnEl.classList.add('bg-iceBlue', 'text-midnight', 'font-bold');
+      btnEl.classList.remove('text-slate-600', 'dark:text-mutedSlate');
+
+      document.querySelectorAll('.project-card').forEach(card => {
+        card.style.display = (category === 'all' || card.dataset.category === category) ? 'flex' : 'none';
+      });
+    }
+
+    // 10. Project Architecture Modal
+    const projectSpecs = {
+      diabetes: {
+        badge: 'Thesis Completed • Google Colab',
+        title: 'AI-Driven Early Diabetes Risk Prediction System',
+        subtitle: 'Preventive Medical Decision-Making Using Machine Learning',
+        stack: 'Python • Scikit-Learn • Google Colab • Predictive Classification Modeling',
+        summary: 'Final-year machine learning research completed on Google Colab. Evaluates non-invasive clinical and demographic health indicators to forecast early diabetes risk and assist preventive clinical screening.',
+        points: [
+          'Built and validated supervised classification pipelines in Google Colab using Python and Scikit-Learn.',
+          'Focused on accessible, non-invasive health indicators for practical early-stage medical decision support.',
+          'Benchmarked model accuracy, precision, and recall across preprocessed health datasets.',
+          'Codebase and research notebooks are currently being organized for GitHub publication.'
+        ]
+      },
+      iot: {
+        badge: 'Hardware Prototype • ESP32 + GSM/SMS',
+        title: 'ESP32-Based IoT Flood Monitoring & SMS Alert System',
+        subtitle: 'Real-Time Water Level & Rainfall Telemetry with Remote SMS Alerts',
+        stack: 'ESP32 Microcontroller • GSM/SMS Module • Water Level & Rain Sensors • C++',
+        summary: 'An embedded IoT warning system engineered to monitor rising water levels and rainfall intensity in real time, automatically dispatching GSM/SMS alerts to stakeholders without requiring broadband internet.',
+        points: [
+          'Continuous water level and precipitation threshold sensing powered by the ESP32 microcontroller.',
+          'Automated GSM/SMS remote alert dispatch for rapid emergency flood notification.',
+          'Designed for resilient, low-power field deployment in flood-prone regions.',
+          'Firmware source code and circuit diagrams are in active preparation for GitHub.'
+        ]
+      },
+      network: {
+        badge: 'Enterprise Simulation • Cisco Packet Tracer',
+        title: 'Industrial Hybrid Network Topology with DHCP',
+        subtitle: 'Multi-Department Hybrid Network Architecture & Automated IP Allocation',
+        stack: 'Cisco Packet Tracer • Automated DHCP • VLAN Segmentation • Routing & Switching',
+        summary: 'Designed and simulated an industrial hybrid enterprise network in Cisco Packet Tracer featuring segmented departments, structured routing and switching, and centralized automated DHCP services.',
+        points: [
+          'Configured centralized DHCP pools for automated, conflict-free IP address assignment across hybrid subnets.',
+          'Implemented VLAN segmentation and structured routing/switching for traffic isolation and performance.',
+          'Verified end-to-end packet reachability and gateway resilience across industrial nodes.',
+          'Packet Tracer (.pkt) topology and CLI configurations are being prepared for GitHub.'
+        ]
+      }
+    };
+
+    function openProjectModal(key) {
+      const item = projectSpecs[key];
+      if (!item) return;
+      document.getElementById('modal-body').innerHTML = `
+        <div class="space-y-4">
+          <span class="inline-block px-3 py-1 rounded-full bg-iceBlue/15 border border-iceBlue/35 text-iceBlue font-mono text-xs font-bold uppercase">
+            ${item.badge}
+          </span>
+          <div>
+            <h3 class="font-display font-extrabold text-2xl text-platinum">${item.title}</h3>
+            <p class="text-sm text-mutedSlate mt-1">${item.subtitle}</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-midnight border border-slate-700 font-mono text-xs text-iceBlue">
+            <strong>Tech Stack:</strong> ${item.stack}
+          </div>
+          <p class="text-sm text-slate-300 leading-relaxed">${item.summary}</p>
+          <div>
+            <h4 class="font-display font-bold text-xs text-iceBlue uppercase tracking-widest mb-2.5">Key Architecture Highlights</h4>
+            <ul class="space-y-2 text-sm text-slate-200">
+              ${item.points.map(pt => `
+                <li class="flex items-start gap-2.5">
+                  <i class="fa-solid fa-circle-check text-iceBlue mt-1 text-xs"></i>
+                  <span>${pt}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+          <div class="pt-4 border-t border-slate-700 flex flex-wrap items-center justify-between gap-3">
+            <span class="text-xs font-mono text-amber-300 bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-400/30">
+              <i class="fa-brands fa-github mr-1"></i> GitHub: Codebase Preparing
+            </span>
+            <button onclick="closeProjectModal()" class="px-5 py-2 bg-iceBlue text-midnight text-sm font-bold rounded-xl hover:bg-steelSky transition-colors">
+              Close
+            </button>
+          </div>
+        </div>
+      `;
+      const modal = document.getElementById('project-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeProjectModal() {
+      const modal = document.getElementById('project-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    document.getElementById('project-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'project-modal') closeProjectModal();
+    });
+
+    // 11. Download Formatted Executive CV File
+    function downloadExecutiveCV() {
+      const cvContent = [
+        '====================================================================',
+        'MD RAJIBUL ALAM RAJIB',
+        'AI & Machine Learning Researcher | IoT Developer | Networking & Cybersecurity',
+        '====================================================================',
+        'Address  : West Matikata, Udayan Tower 4/F, Dhaka-1206, Bangladesh',
+        'Phone    : +8801310511163',
+        'Email    : rajib2305101812@diu.edu.bd',
+        'LinkedIn : https://www.linkedin.com/in/md-rajibul-alam-rajib-86966728a',
+        'GitHub   : Repositories in Active Preparation (Coming Soon)',
+        '',
+        'EXECUTIVE SUMMARY',
+        '--------------------------------------------------------------------',
+        'B.Sc. in Computer Science and Engineering (CSE) candidate at Daffodil',
+        'International University (CGPA: 3.57/4.00). Experienced in AI-driven',
+        'preventive healthcare research, ESP32 IoT SMS telemetry systems,',
+        'Cisco Packet Tracer hybrid networking, and cybersecurity fundamentals.',
+        '',
+        'EDUCATION',
+        '--------------------------------------------------------------------',
+        '* B.Sc. in Computer Science and Engineering (CSE)',
+        '  Daffodil International University (DIU) | CGPA: 3.57 / 4.00 | Expected: Dec 2027',
+        '* HSC (2021) — Bogura Cantonment Public School and College | GPA: 5.00',
+        '* SSC (2019) — Udaypur High School, Sujanagar, Pabna | GPA: 5.00',
+        '',
+        'THESIS & TECHNICAL PROJECTS',
+        '--------------------------------------------------------------------',
+        '1. AI-Driven Early Diabetes Risk Prediction System (Thesis — Completed on Google Colab)',
+        '   - Supervised predictive modeling using Python, Scikit-Learn & non-invasive indicators.',
+        '2. ESP32-Based IoT Flood Monitoring & SMS Alert System',
+        '   - Real-time water level & rainfall monitoring with automated GSM/SMS alerts.',
+        '3. Industrial Hybrid Network Topology with DHCP (Cisco Packet Tracer)',
+        '   - Multi-department hybrid enterprise topology with automated DHCP & routing/switching.',
+        '',
+        'AWARDS & LEADERSHIP',
+        '--------------------------------------------------------------------',
+        '* Best Delegate Award — NSTU Model United Nations 2019 (Committee: UNHRC)',
+        '* Active Member — HDRI & Skill Up Club, Daffodil International University',
+        '',
+        'TECHNICAL & INTERPERSONAL SKILLS',
+        '--------------------------------------------------------------------',
+        'Technical : Python, Machine Learning, Google Colab, ESP32, TCP/IP, OSI Model,',
+        '            Cisco Packet Tracer, DHCP, Wireshark, Nmap, Autopsy, Photoshop, MS Office',
+        'Soft      : Leadership, Public Speaking, Project Management, Critical Thinking,',
+        '            Problem Solving, Teamwork, Communication, Work Under Pressure',
+        'Languages : English (Advanced), Bengali (Native)',
+        '===================================================================='
+      ].join('\n');
+
+      const blob = new Blob([cvContent], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'MD_Rajibul_Alam_Rajib_CV.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Executive CV summary downloaded!');
+    }
+  </script>
+</body>
+</html>
